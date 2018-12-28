@@ -1,0 +1,166 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-black-50 text-center m-0">iTASKS v.2.1</h1>
+            <div class="row d-inline-flex">
+                <div class="col">
+                    <p class="bg-dark h4 text-white pl-2 pr-2">{{user.username}}</p>
+                </div>
+                <div class="col">
+                    <button class="btn btn-danger p-0 pl-2 pr-2" (click)="logout()">Salir</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>  
+
+
+    <!-- Registro de tareas -->
+    <div class="row bg-dark">
+        <div class="col-md-12 mt-3 mb-0">
+
+            <div class="text-center">
+                <a href="" class="btn btn-danger btn-block btn-rounded mb-4" data-toggle="modal" data-target="#modalTaskRegister">Añadir
+                    tarea</a>
+            </div>
+
+            <!-- Modals -->
+            <div class="modal fade" id="modalTaskRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Ingrese tarea</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+
+                            <!-- <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)"> -->
+                            <form (submit)="addTask()">
+                            <!-- <form #taskForm="ngForm" (ngSubmit)="addTask(taskForm)"> -->
+                                <div class="form-group md-form mb-5">
+                                    <i class="fa fa-text-height" aria-hidden="true"></i>
+                                    <label for="name">Nombre de la tarea</label>
+                                    <!-- <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="objProject.name" required> -->
+                                    <!-- <input type="text" id="form3" class="form-control validate" name="name" #name="ngModel" [(ngModel)]="task.name" required> -->
+                                    <input type="text" id="name" class="form-control" name="name" [(ngModel)]="task.name" required placeholder="Nombre de tarea">
+                                </div>
+                                <div class="form-group md-form mb-5">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                    <label data-error="wrong" data-success="right" for="form2">Describe tu tarea:</label>
+                                    <!-- <textarea name="description" class="form-control validate" name="description" #description="ngModel" [(ngModel)]="task.description" cols="30" rows="3"></textarea> -->
+                                    <textarea name="description" class="form-control" [(ngModel)]="task.description" cols="30" rows="3" placeholder="Descripcion"></textarea>
+                                </div>
+                                <!-- <button type="submit" class="btn btn-indigo" data-dismiss="modal">Registrar tarea <i class="fa fa-paper-plane-o ml-1"></i></button> -->
+                                <!-- <button type="submit" class="btn btn-indigo" data-dismiss="modal">Registrar tarea <i class="fa fa-paper-plane-o ml-1"></i></button> -->
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button #btnClose type="submit" class="btn btn-indigo">Registrar tarea <i class="fa fa-paper-plane-o ml-1"></i></button>
+                                    <span #btnClose class="btn btn-indigo" data-dismiss="modal">Cerrar <i class="fa fa-window-close" aria-hidden="true"></i></span>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal EDIT -->
+            <div class="modal fade" id="modalTaskEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Ingrese nueva tarea</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+
+                            <form (submit)="editTask()">
+                                <div class="form-group md-form mb-5">
+                                    <i class="fa fa-text-height" aria-hidden="true"></i>
+                                    <label for="name">Nombre de la tarea</label>
+                                    <input type="text" id="name" class="form-control" name="name" [(ngModel)]="task.name" required placeholder="Nombre de tarea">
+                                </div>
+                                <div class="form-group md-form mb-5">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                    <label data-error="wrong" data-success="right" for="form2">Describe tu tarea:</label>
+                                    <textarea name="description" class="form-control" [(ngModel)]="task.description" cols="30" rows="3" placeholder="Descripcion"></textarea>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-indigo">Cambiar tarea <i class="fa fa-paper-plane-o ml-1"></i></button>
+                                    <span #btnClose class="btn btn-indigo" data-dismiss="modal">Listo<i class="fa fa-window-close" aria-hidden="true"></i></span>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <!-- Lista de tareas agregadas -->
+    <div class="row bg-dark">
+        <div class="col-md-12">
+            <div class="row bg-dark p-3">
+                <label for="" class="text-white pl-2">LISTA DE TAREAS</label>
+                <table class="table table-bordered table-responsive-sm bg-light">
+                    <thead class="bg-danger">
+                        <tr class="text-center d-flex">
+                            <th class="col-1">#</th>
+                            <th class="col-4">Tarea</th>
+                            <th class="col-5">Descripcion</th>
+                            <th class="col-2">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of tasks; let i = index"  class="d-flex">
+                            <td class="col-1">
+                                {{i+1}}
+                            </td>
+                            <td class="col-4">
+                                {{task.name}}
+                            </td>
+                            <td class="col-5">
+                                {{task.description}}
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button class="btn-block btn-danger p-0 pl-2 pr-2 mb-2" (click)="changeStateTask(i)" *ngIf="task.state == 'Pendiente'">{{task.state}}</button>
+                                        <button class="btn-block btn-success p-0 pl-2 pr-2 mb-2" (click)="changeStateTask(i)" *ngIf="task.state == 'Hecho'">{{task.state}}</button>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <!-- <button class="btn btn-info p-0 pl-2 pr-2 mb-2" (click)="editTask(i)">Editar</button> -->
+                                        <button class="btn btn-info p-0 pl-2 pr-1 mb-2" data-toggle="modal" data-target="#modalTaskEdit" (click)="getTask(i)">Editar</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-info p-0 pl-2 pr-1 mb-2" (click)="removeTask(i)">Eliminar</button>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- <div *ngFor="let task of tasks">
+                    {{task.name}}
+                </div> -->
+            </div>
+
+        </div>
+    </div>
+
+    <i class="far fa-h3 text-black-50 m-0">By itrebolsoft</i>
+</div>
+
+

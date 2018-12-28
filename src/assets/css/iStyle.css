@@ -1,0 +1,18 @@
+body{
+    font-family: 'Gamja Flower', cursive !important;
+    /* font-family: 'Pacifico', cursive !important; */
+    /* font-family: 'Dancing Script', cursive !important; */
+    /* font-family: 'Shadows Into Light', cursive !important; */
+    /* font-size: 1.5rem !important; */
+}
+.fondo{
+    background-color: #BC2D19 !important;
+    /* width: ; */
+    /* height: 600px; */
+}
+.bg-pendiente{
+    background-color: rgb(231, 124, 82) !important;
+}
+.bg-hecho{
+    background-color: rgb(53, 120, 207) !important;
+}
