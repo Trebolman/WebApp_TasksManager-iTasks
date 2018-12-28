@@ -26,7 +26,6 @@ interface TokenResponse{
 @Injectable()
 export class AuthService {
   // propiedades
-  private uri:string = "mongodb://user:usuario1@ds119113.mlab.com:19113/db-its";
   private token:string;
 
   // 
@@ -68,7 +67,7 @@ export class AuthService {
 
   public testUsername(username:string):Observable<any>{
     // return this.http.post('/api/testUsername',{username});
-    return this.http.post('http://localhost:3000/api/testUsername',{username});
+    return this.http.post('/api/testUsername',{username});
   }
 
   private request(method: 'post'|'get', type: 'login'|'register'|'profile', user?: TokenPayload): Observable<any> {
@@ -76,7 +75,7 @@ export class AuthService {
 
     if (method === 'post') {
       // base = this._http.post(`/api/${type}`, user);
-      base = this.http.post(`http://localhost:3000/api/${type}`,user);
+      base = this.http.post(`/api/${type}`,user);
       // base = this.http.post(`/api/${type}`,user);
     }
 
